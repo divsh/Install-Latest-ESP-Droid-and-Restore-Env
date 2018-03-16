@@ -50,7 +50,7 @@ ECHO ****** Installing latest MSI %NewestFile% ...
 	taskkill /im DCP.exe /f
 	taskkill /im Droidplayer.exe /f
 
-	C:\Users\sqa\Desktop\getLatestDroid6.bat.lnk
+	echo. | C:\Users\sqa\Desktop\getLatestDroid6.bat.lnk
 )
 
 if %runDroid%==y (
@@ -59,7 +59,4 @@ if %runDroid%==y (
 ) 
 
 pause
-
-
-
 
