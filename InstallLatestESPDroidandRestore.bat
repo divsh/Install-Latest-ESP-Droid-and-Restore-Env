@@ -1,24 +1,41 @@
 @ECHO OFF
 REM Instructions:- Set the below 2 variables 
-SET InstallerPath=\\calypso\Releases\ESP_8.62_180101
-SET FileNameFormat=ESP_test_8.62_??????.???????.msi
-SET desktop=C:\Users\sqa\Desktop\
+         SET desktop=C:\Users\sqa\Desktop\
+REM SET productName=Kiwiplan Business Solutions
+REM SET productName=Kiwiplan ESP
 
+REM SET InstallerPath=\\calypso\Releases\ESP_9.10_180401
+REM SET FileNameFormat=ESP_test_9.10_??????.???????.msi
+         SET InstallerPath=\\calypso\Releases\ESP_8.62_180101
+         SET FileNameFormat=ESP_test_8.62_??????.???????.msi
+
+
+REM ********************************
 REM ****Program begins from here****
-SET /p runDroid="Play droid restore script?[Y/N]" 
+REM ********************************
+
+SET /p runDroid="Run database restore droid script?[Y/N]" 
 
 IF %runDroid%==y (
-	Echo ****** Free up connections on Vterm and
+	Echo ****** Free up connections on Vterm close all connection to the database.
 	Pause
 ) 
 
 SET currentlyInstalledMSIName="garbage"
 
-ECHO ****** Querying currently installed ESP MSI ...
+ECHO ****** Querying currently installed 'Kiwiplan Business Solutions'...
 FOR /f "delims=" %%a IN ('
     wmic product where "Name='Kiwiplan Business Solutions'" get packagename ^| find "msi"
 ') DO SET currentlyInstalledMSIName=%%a
 SET currentlyInstalledMSIName=%currentlyInstalledMSIName: =%
+
+if %currentlyInstalledMSIName%=="garbage" (
+ECHO ****** Querying currently installed 'Kiwiplan ESP'...
+FOR /f "delims=" %%a IN ('
+    wmic product where "Name='Kiwiplan ESP'" get packagename ^| find "msi"
+') DO SET currentlyInstalledMSIName=%%a
+SET currentlyInstalledMSIName=%currentlyInstalledMSIName: =%
+)
 
 if %currentlyInstalledMSIName%=="garbage" (
 	ECHO ****** No ESP MSI found installed. 
@@ -59,4 +76,7 @@ if %runDroid%==y (
 ) 
 
 pause
+
+
+
 
